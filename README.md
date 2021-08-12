@@ -14,7 +14,7 @@ unzip blogs.zip
 #Python packages required
 #nltk
 
-nltk.download('punkt') "For sentence splitter"
+nltk.download('punkt') #This will download the sentence splitter
 
 #Generate dataset
 python generateDataset.py 
