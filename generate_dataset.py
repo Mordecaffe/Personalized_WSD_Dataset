@@ -3,6 +3,16 @@ import sys
 import os
 
 blogs_dir = 'blogs/'
+annotationFile = 'annotations.txt'
+
+def readInAnnotations(ann_file):
+    annotations = {}
+    for line in open(ann_file).readlines():
+        sampleID, author,postID, sense, synset = line.strip().split('||')
+
+        annotations[sampleID] = [author,postID,sense, synset]
+    return annotations
+
 
 def readInAuthorFiles(curr_author):
     author_blogs = {}
@@ -35,6 +45,8 @@ def readInAuthorFiles(curr_author):
         curr_line = curr_file.readline()
     return author_blogs
 
+annotations = readInAnnotations(annotationFile)
+
 allAuthorsPosts = {}
 authorPostsUsed = {}
 loadedConversions = json.load(open('conversions.json'))
@@ -46,7 +58,10 @@ for currID in loadedConversions:
         allAuthorsPosts[curr_author] = readInAuthorFiles(curr_author)
         authorPostsUsed[curr_author] = []
     postID = currSample['post_ID']
+    authorID,currPostID, sense,synset = annotations[currID]
     authorPostsUsed[curr_author].append(postID)
+    assert authorID == curr_author, "Author IDs do not match"
+    assert postID == currPostID, "Post IDs do not match"
     author_text = allAuthorsPosts[curr_author][postID]
     start = currSample['start index'] 
     end = currSample['end_index']
@@ -80,7 +95,7 @@ for currID in loadedConversions:
     targetText = temp_2[:endTag] + '</b>' + temp_2[endTag:]
     targetText = targetText.strip()
 
-    outFile.write(currSample['author'] + '||' + currSample['lemma'] + '||' +postID + '||' + targetText + '\n')
+    outFile.write(str(currID)+'||' + currSample['author'] + '||' + currSample['lemma'] + '||' +postID + '||'+sense +'||'+synset +'||' + targetText + '\n')
 
 outFile.close()
 

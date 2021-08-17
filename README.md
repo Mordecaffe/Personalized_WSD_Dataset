@@ -21,7 +21,8 @@ python generateDataset.py
 
 #Code above will generate the following:
 
-#dataset.txt - One instance per line in the format author||lemma||postID||text with target tagged with <b></b> 
+#dataset.txt - One instance per line in the format Sample ID||author||lemma||post ID||Sense||WordNet Synset||text with target tagged with <b></b>
+!!Post IDs are not unique, but indicate the post number for a specific author 
 #Training/  - A directory that contains files that contain posts from the authors that were not used for annotated instances. One post per line.
 
 
