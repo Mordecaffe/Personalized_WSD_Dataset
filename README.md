@@ -20,7 +20,7 @@ python generateDataset.py
 
 #Code above will generate the following:
 
-#dataset.txt - One instance per line in the format Sample ID||author||lemma||post ID||Sense||WordNet Synset||text with target tagged with "<b></b>"
+#dataset.txt - One instance per line in the format Sample ID||author||lemma||post ID||Sense||WordNet Synset||text with target token tagged with html's bold tags <b>token</b>
 
 Post IDs are not unique, but indicate the post number for a specific author 
 
